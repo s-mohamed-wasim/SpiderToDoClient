@@ -32,7 +32,9 @@ export class AccountService {
   {
     console.log(model);
     return this.http.post<any>(this.apiBaseUrl+'/auth/register',model).pipe(
-      map(response => response)
+      map(response => {
+        return response;
+      })
     )
   }
 

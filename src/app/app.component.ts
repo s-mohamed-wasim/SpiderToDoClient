@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from './_services/account.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit {
 
   showSignUpForm: boolean = false;
 
-  constructor(public accountService: AccountService,private fb: FormBuilder){
+  constructor(public accountService: AccountService,private fb: FormBuilder,private toastr: ToastrService){
     this.loginForm = this.fb.group({
       email: ['',[Validators.required,Validators.email]],
       password: ['',[Validators.required]]
@@ -55,20 +56,21 @@ export class AppComponent implements OnInit {
         console.log(response);
         if(response.out == 1)
         {
-          alert('login successful')
+          this.toastr.success('login successful');
           this.loginForm.reset();
         }
         else
         {
           if(response.error)
           {
-            alert(response.error[0]?.errorMsg);
+            this.toastr.error(response.error[0]?.errorMsg);
           }
         }
       },
       error: error => {
         console.log(error)
-      }
+      },
+      complete: () => {}
     })
   }
 
@@ -87,15 +89,24 @@ export class AppComponent implements OnInit {
     this.accountService.signup(model).subscribe({
       next: response => {
         console.log(response);
+        if(response.out == 1)
+        {
+          this.toastr.info('user created successfullly');
+          this.signupForm.reset();
+          this.toggleSignUpFormFlag();
+        }
+        else
+        {
+          if(response.error)
+          {
+            this.toastr.error(response.error[0]?.errorMsg);
+          }
+        }
       },
       error: error => {
         console.log(error)
       },
-      complete: () => {
-        alert("user created successfullly");
-        this.signupForm.reset();
-        this.toggleSignUpFormFlag();
-      }
+      complete: () => {}
     });
   }
 

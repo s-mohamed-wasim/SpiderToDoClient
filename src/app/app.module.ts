@@ -6,6 +6,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ToastrModule } from 'ngx-toastr';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -28,6 +29,11 @@ import { TasksComponent } from './tasks/tasks.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot({     
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
     AppRoutingModule,
     HttpClientModule,
     MatButtonModule,
