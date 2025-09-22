@@ -1,0 +1,15 @@
+.logo
+{
+    width: 30px;
+    height: 30px;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Makes it perfectly round */
+  object-fit: cover;  /* Ensures image stays nicely cropped */
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  border: 1px solid gray;
+}
