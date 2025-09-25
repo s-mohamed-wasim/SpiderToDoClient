@@ -1,3 +1,25 @@
+/* Full layout */
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* full height of screen */
+}
+
+/* Navbar fixed at top */
+.navbar-fixed {
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* stay above content */
+}
+
+/* Scrollable content */
+.content {
+  flex-grow: 1;
+  overflow-y: auto; /* only this part scrolls */
+  padding: 1rem;
+  background: #f9fafb; /* light bg for contrast */
+}
 
 
 

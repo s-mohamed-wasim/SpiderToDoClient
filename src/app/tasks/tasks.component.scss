@@ -1,0 +1,134 @@
+.tasks-container {
+  position: relative; /* for fab positioning */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem;
+  height: 100%;
+}
+
+.tasks-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.status-toggle {
+  width: 100%;               /* make group full width */
+  display: flex;             /* distribute buttons */
+}
+
+.status-toggle .mat-button-toggle {
+  flex: 1;                   /* each toggle takes equal space */
+  text-align: center;
+}
+
+
+.tasks-list {
+  display: grid;
+  gap: 1rem;
+  padding-bottom: 4rem; /* space for FAB */
+}
+
+.task-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fff;
+  padding: 0.6rem 1rem;
+}
+
+.task-row {
+  display: flex;
+  align-items: center;       /* ✅ center everything vertically */
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Left section (checkbox) */
+.task-left {
+  display: flex;
+  align-items: center;       /* ✅ checkbox vertically centered */
+}
+
+/* Middle section (details stacked) */
+.task-middle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.task-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: revert;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+/* Strike-through style when completed */
+.task-title.completed {
+  text-decoration: line-through;
+  color: #999;   /* greyed out */
+}
+
+.task-desc {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.task-desc.completed {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+.task-dates {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.date-label {
+  font-weight: 600;
+  margin-right: 0.3rem;
+}
+
+/* Right section (icons side by side) */
+.task-right {
+  display: flex;
+  flex-direction: row;
+  gap: 0rem;
+  align-items: center;       /* ✅ icons also vertically centered */
+}
+
+
+
+.task-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.no-tasks {
+  text-align: center;
+  padding: 2rem;
+  color: #777;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.no-tasks mat-icon {
+  font-size: 3rem;
+  color: #ccc;
+}
+
+/* Floating Action Button */
+.fab {
+  position: fixed;
+  bottom: 4rem;
+  right: 2rem;
+  z-index: 1001;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+}

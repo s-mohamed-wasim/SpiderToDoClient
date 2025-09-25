@@ -1,13 +1,19 @@
-@if(accountService.currentUser())
-{
-    <app-navbar></app-navbar>
+@if(accountService.currentUser()) {
+  <div class="layout">
+    <!-- Fixed navbar -->
+    <app-navbar class="navbar-fixed"></app-navbar>
+
+    <!-- Scrollable tasks area -->
+    <div class="content container">
+      <app-tasks></app-tasks>
+    </div>
+  </div>
 }
-@else
-{
-    @if (!showSignUpForm) {
+@else {
+  @if (!showSignUpForm) {
     <app-login (formRedirectEvent)="toggleFormFlag()"></app-login>
-    }
-    @else {
+  }
+  @else {
     <app-signup (formRedirectEvent)="toggleFormFlag()"></app-signup>
-    }
+  }
 }
