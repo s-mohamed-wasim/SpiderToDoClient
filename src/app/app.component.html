@@ -1,101 +1,13 @@
 @if(accountService.currentUser())
 {
-<app-navbar></app-navbar>
-<div class="container mt-5">
-</div>
+    <app-navbar></app-navbar>
 }
 @else
 {
-
-@if (!showSignUpForm) {
-<div class="login-container mt-5">
-    <!-- Logo -->
-    <div class="logo-section">
-        <img src="images/spider_todo_logo.png" alt="Spider Logo" class="logo-img" />
-        <h2 class="logo-title">SPIDER TODO</h2>
-    </div>
-
-    <!-- Login Form -->
-    <form [formGroup]="loginForm" (ngSubmit)="login()">
-        <!-- Email -->
-        <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Email</mat-label>
-            <input matInput placeholder="Enter your email" formControlName="email" />
-        </mat-form-field>
-
-        <!-- Password -->
-        <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Password</mat-label>
-            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
-            <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
-                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-            </button>
-        </mat-form-field>
-
-        <!-- Login Button -->
-        <button mat-flat-button color="primary" class="full-width login-btn" type="submit">
-            Login
-        </button>
-    </form>
-
-    <!-- Forgotten Password -->
-    <div class="forgot-password">
-        <a href="#">Forgotten Password?</a>
-    </div>
-
-    <!-- Divider -->
-    <div class="divider">
-        <span>or</span>
-    </div>
-
-    <!-- Create Account Button -->
-    <button mat-stroked-button color="primary" (click)="toggleSignUpFormFlag()" class="full-width create-btn">
-        Create new account
-    </button>
-</div>
-}
-@else {
-<div class="signup-container mt-5">
-    <!-- Logo -->
-    <div class="logo-section">
-        <img src="images/spider_todo_logo.png" alt="Spider Logo" class="logo-img" />
-        <h2 class="logo-title">SPIDER TODO</h2>
-    </div>
-
-    <!-- Sign Up Form -->
-    <form [formGroup]="signupForm" (ngSubmit)="createAccount()">
-        <!-- Full Name -->
-        <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Full Name</mat-label>
-            <input matInput placeholder="Enter your full name" formControlName="fullName" />
-        </mat-form-field>
-
-        <!-- Email -->
-        <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Email</mat-label>
-            <input matInput placeholder="Enter your email" formControlName="email" />
-        </mat-form-field>
-
-        <!-- Password -->
-        <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Password</mat-label>
-            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
-            <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
-                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-            </button>
-        </mat-form-field>
-
-        <!-- Sign Up Button -->
-        <button mat-flat-button color="primary" class="full-width signup-btn" type="submit">
-            Sign Up
-        </button>
-    </form>
-
-    <!-- Already have an account -->
-    <div class="login-link">
-        <a (click)="toggleSignUpFormFlag()">Already have an account?</a>
-    </div>
-</div>
-
-}
+    @if (!showSignUpForm) {
+    <app-login (formRedirectEvent)="toggleFormFlag()"></app-login>
+    }
+    @else {
+    <app-signup (formRedirectEvent)="toggleFormFlag()"></app-signup>
+    }
 }

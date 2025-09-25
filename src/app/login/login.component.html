@@ -1,0 +1,46 @@
+<div class="login-container mt-5">
+    <!-- Logo -->
+    <div class="logo-section">
+        <img src="images/spider_todo_logo.png" alt="Spider Logo" class="logo-img" />
+        <h2 class="logo-title">SPIDER TODO</h2>
+    </div>
+
+    <!-- Login Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <!-- Email -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Enter your email" formControlName="email" />
+        </mat-form-field>
+
+        <!-- Password -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
+            <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <!-- Login Button -->
+        <button mat-flat-button color="primary" [disabled]="!loginForm.valid" class="full-width login-btn"
+            type="submit">
+            Login
+        </button>
+    </form>
+
+    <!-- Forgotten Password -->
+    <div class="forgot-password">
+        <a href="#">Forgotten Password?</a>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider">
+        <span>or</span>
+    </div>
+
+    <!-- Create Account Button -->
+    <button mat-stroked-button color="primary" (click)="redirectToSignupForm()" class="full-width create-btn">
+        Create new account
+    </button>
+</div>

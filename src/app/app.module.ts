@@ -16,6 +16,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TasksComponent } from './tasks/tasks.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 
@@ -24,7 +26,9 @@ import { TasksComponent } from './tasks/tasks.component';
   declarations: [
     AppComponent,
     NavbarComponent,
-    TasksComponent
+    TasksComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
