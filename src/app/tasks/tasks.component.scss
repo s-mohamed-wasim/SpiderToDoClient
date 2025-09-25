@@ -132,3 +132,12 @@
   z-index: 1001;
   box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
 }
+
+/* tasks.component.css */
+.edit-btn mat-icon {
+  color: #58718b; /* blue for edit */
+}
+
+.delete-btn mat-icon {
+  color: #58718b; /* red for delete */
+}

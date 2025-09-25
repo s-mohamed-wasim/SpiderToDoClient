@@ -15,7 +15,7 @@
 
                 <!-- Left: Checkbox -->
                 <div class="task-left">
-                    <mat-checkbox [checked]="task.status === 'Completed'" color="primary"></mat-checkbox>
+                    <mat-checkbox [checked]="task.status === 'Completed'" color="primary" (change)="toggleTaskStatus(task)"></mat-checkbox>
                 </div>
 
                 <!-- Middle: Task details -->
@@ -39,10 +39,10 @@
 
                 <!-- Right: Actions -->
                 <div class="task-right">
-                    <button mat-icon-button color="primary" (click)="editTask(task)" aria-label="Edit">
+                    <button mat-icon-button class="edit-btn" (click)="editTask(task.taskId)" aria-label="Edit">
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <button mat-icon-button color="warn" (click)="deleteTask(task)" aria-label="Delete">
+                    <button mat-icon-button class="delete-btn" (click)="deleteTask(task.taskId)" aria-label="Delete">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </div>

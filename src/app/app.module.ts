@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
 import { ToastrModule } from 'ngx-toastr';
 
 
@@ -22,6 +23,7 @@ import { TasksComponent } from './tasks/tasks.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { authInterceptor } from './_interceptors/auth.interceptor';
+import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.component';
 
 
 
@@ -32,7 +34,8 @@ import { authInterceptor } from './_interceptors/auth.interceptor';
     NavbarComponent,
     TasksComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    AddTaskDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,7 @@ import { authInterceptor } from './_interceptors/auth.interceptor';
     MatFormFieldModule,
     MatCardModule,
     MatCheckboxModule,
+    MatDialogModule,
     FormsModule,
     ReactiveFormsModule
   ],

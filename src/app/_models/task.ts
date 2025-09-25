@@ -4,7 +4,7 @@ export interface Task
     title: string;
     description?: string;
     status: string;
-    createdDate: Date;
-    modifiedDate?: Date;
+    createdDate: string;
+    modifiedDate?: string;
     userId: number;
 }
