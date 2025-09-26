@@ -4,6 +4,7 @@ import { Task } from '../_models/task';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTaskDialogComponent } from '../add-task-dialog/add-task-dialog.component';
+import { ConfirmDialogComponent } from '../_shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-tasks',
@@ -15,7 +16,7 @@ export class TasksComponent implements OnInit {
   tasks: Task[] = [];
   selectedTab: 'Pending' | 'Completed' = 'Pending';
 
-  constructor(private tasksService: TaskService, private toastr: ToastrService,private dialog: MatDialog) { }
+  constructor(private tasksService: TaskService, private toastr: ToastrService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getAllTasks();
@@ -59,7 +60,7 @@ export class TasksComponent implements OnInit {
           error: (error) => {
             console.log(error);
           },
-          complete: () => {}
+          complete: () => { }
         });
       }
     });
@@ -87,32 +88,44 @@ export class TasksComponent implements OnInit {
           error: (error) => {
             console.log(error);
           },
-          complete: () => {}
+          complete: () => { }
         });
       }
     });
   }
 
   deleteTask(taskId: number) {
-    this.tasks = this.tasks.filter(t => t.taskId !== taskId);
+    
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: { message: 'Are you sure you want to delete this task?' }
+    });
 
-    let model = {taskId:taskId};
-    this.tasksService.deleteTask(model).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.toastr.success("Deleted Successfully");
-        this.getAllTasks();
-      },
-      error: (error) => {
-        console.log(error);
-      },
-      complete: () => {}
-    })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+
+        this.tasks = this.tasks.filter(t => t.taskId !== taskId);
+
+        let model = { taskId: taskId };
+        this.tasksService.deleteTask(model).subscribe({
+          next: (response) => {
+            console.log(response);
+            this.toastr.success("Deleted Successfully");
+            this.getAllTasks();
+          },
+          error: (error) => {
+            console.log(error.error);
+          },
+          complete: () => { }
+        })
+
+      }
+    });
   }
 
   toggleTaskStatus(task: Task) {
 
-    let model = {Activity:-1,TaskIds:[task.taskId]};
+    let model = { Activity: -1, TaskIds: [task.taskId] };
 
     if (task.status === 'Pending') {
       model.Activity = 1;
@@ -129,7 +142,7 @@ export class TasksComponent implements OnInit {
       error: error => {
         console.log(error);
       },
-      complete: () => {}
+      complete: () => { }
     })
   }
 

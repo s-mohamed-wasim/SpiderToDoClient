@@ -39,9 +39,12 @@
 
                 <!-- Right: Actions -->
                 <div class="task-right">
+                    @if(task.status === 'Pending')
+                    {
                     <button mat-icon-button class="edit-btn" (click)="editTask(task.taskId)" aria-label="Edit">
                         <mat-icon>edit</mat-icon>
                     </button>
+                    }
                     <button mat-icon-button class="delete-btn" (click)="deleteTask(task.taskId)" aria-label="Delete">
                         <mat-icon>delete</mat-icon>
                     </button>

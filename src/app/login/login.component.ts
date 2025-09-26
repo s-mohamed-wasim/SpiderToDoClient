@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AccountService } from '../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,9 +13,8 @@ export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
   hidePassword = true;
-  @Output() formRedirectEvent = new EventEmitter<void>(); 
 
-  constructor(public accountService: AccountService, private fb: FormBuilder, private toastr: ToastrService) {
+  constructor(public accountService: AccountService, private fb: FormBuilder, private toastr: ToastrService, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -37,7 +37,8 @@ export class LoginComponent implements OnInit {
         console.log(response);
         if (response.out == 1) {
           this.toastr.success('login successful');
-          this.loginForm.reset();
+          this.loginForm.reset();          
+          this.router.navigate(['tasks']);
         }
         else {
           if (response.error) {
@@ -51,10 +52,6 @@ export class LoginComponent implements OnInit {
       },
       complete: () => { }
     })
-  }
-
-  redirectToSignupForm() {
-    this.formRedirectEvent.emit();
   }
 
 }

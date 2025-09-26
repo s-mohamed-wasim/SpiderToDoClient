@@ -1,17 +1,27 @@
 .tasks-container {
-  position: relative; /* for fab positioning */
+      position: relative; /* for fab positioning */
+    height: 100%;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   padding: 1rem;
-  height: 100%;
 }
 
 .tasks-header {
+  position: sticky;
+  top: 0;                     /* stick to top of container */
+  z-index: 10;                 /* ensure it stays above tasks */
+
+
+  background: #fff;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e0e0e0;
+  
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
+
 
 .status-toggle {
   width: 100%;               /* make group full width */
@@ -23,18 +33,37 @@
   text-align: center;
 }
 
+// .tasks-list {
+//   flex: 1;
+//   overflow-y: auto;
+//   display: grid;
+//   gap: 1rem;
+//   padding-bottom: 4rem; /* space for FAB */
+// } 
 
+// .task-card {
+//   border: 1px solid #e0e0e0;
+//   border-radius: 8px;
+//   background: #fff;
+//   padding: 0.6rem 1rem;
+// }
+
+/* Only the list scrolls */
 .tasks-list {
-  display: grid;
+  flex: 1;                  /* takes remaining height */
+  overflow-y: auto;         /* scrollable */
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
-  padding-bottom: 4rem; /* space for FAB */
 }
 
 .task-card {
+  /* card height will now auto-fit content */
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   background: #fff;
-  padding: 0.6rem 1rem;
+  padding: 0.8rem;
 }
 
 .task-row {

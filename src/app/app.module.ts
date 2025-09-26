@@ -11,7 +11,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ToastrModule } from 'ngx-toastr';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,8 +22,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TasksComponent } from './tasks/tasks.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { authInterceptor } from './_interceptors/auth.interceptor';
 import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.component';
+import { ConfirmDialogComponent } from './_shared/confirm-dialog/confirm-dialog.component';
+import { authInterceptor } from './_interceptors/auth.interceptor';
+import { loaderInterceptor } from './_interceptors/loader.interceptor';
 
 
 
@@ -35,7 +37,8 @@ import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.compon
     TasksComponent,
     LoginComponent,
     SignupComponent,
-    AddTaskDialogComponent
+    AddTaskDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -57,11 +60,13 @@ import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.compon
     MatCheckboxModule,
     MatDialogModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule.forRoot({ type: 'line-scale-party' }) //default spinner type
   ],
   providers: [
     provideAnimationsAsync(),
-    provideHttpClient(withInterceptors([authInterceptor])),
+    provideHttpClient(withInterceptors([authInterceptor,loaderInterceptor])),
+
   ],
   bootstrap: [AppComponent]
 })
