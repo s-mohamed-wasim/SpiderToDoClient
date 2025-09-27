@@ -13,7 +13,7 @@ export class AddTaskDialogComponent {
   taskForm!: FormGroup;
 
   constructor(private fb: FormBuilder,private dialogRef: MatDialogRef<AddTaskDialogComponent>
-              ,private tasksService : TaskService,@Inject(MAT_DIALOG_DATA) public taskId: number | null) 
+              ,private tasksService : TaskService,@Inject(MAT_DIALOG_DATA) public data: {title:string,message:string,taskId:number}) 
   {
     this.taskForm = this.fb.group({
       taskId: [0],
@@ -21,9 +21,9 @@ export class AddTaskDialogComponent {
       description: ['']
     });
 
-    if(taskId)
+    if(data.taskId)
     {
-      this.getTask(taskId);
+      this.getTask(data.taskId);
     }
   }
 

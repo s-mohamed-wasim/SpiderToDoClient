@@ -8,7 +8,6 @@ export const loaderInterceptor: HttpInterceptorFn = (req, next) => {
 
   const busyService = inject(BusyService);
 
-
   busyService.busy();
 
   return next(req).pipe(

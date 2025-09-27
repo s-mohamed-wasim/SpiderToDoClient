@@ -17,8 +17,7 @@ export class BusyService {
       type: 'line-scale-party',
       bdColor: 'rgba(0, 0, 0, 0.2)',
       color: '#333333',
-      size: 'default',
-      template: 'test'
+      size: 'default' //small,default,medium,larage 
     })
   }
 

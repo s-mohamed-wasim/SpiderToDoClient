@@ -1,10 +1,14 @@
-2. loading interceptor
 3. Hi username in navbar
 4. forgot password implementation
 5. profile edit along pith dp upload
 6. common app theme (in settings implementation)
-7. due date for task - implementation
+7. due date and time for task - implementation
 10. limiting the length to task title and description and showing tooltip
 12. white spider logo
 13. make the task card draggable
-14. disable the submit kind of buttons once clicked using directive
+14. angular snackbar implementation
+15. too many attempts to login feature
+16. check the user entered 
+17. undo delete action
+18. show count for pending and completed tasks
+19. sorting and search option implementation.

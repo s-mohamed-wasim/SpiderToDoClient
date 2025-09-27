@@ -1,11 +1,17 @@
 .login-container {
   max-width: 320px;
-  margin: auto;
-  padding: 20px;
+  margin: auto;                /* center horizontally */
+  padding: 5px;
+
+  /* Flexbox centering */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;     /* vertical centering */
+  align-items: center;         /* horizontal centering */
+
+  min-height: 88vh;           
 }
+
 
 .forgot-password {
   margin-top: 10px;
@@ -40,6 +46,13 @@
 
 .login-btn {
   margin-top: 15px;
+}
+
+.login-btn:disabled
+{
+  background-color: #005cbb;
+  color: #fff;
+  opacity: 0.5;
 }
 
 .divider {

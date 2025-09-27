@@ -2,8 +2,8 @@
     <!-- Top bar with toggle only -->
     <div class="tasks-header">
         <mat-button-toggle-group [(ngModel)]="selectedTab" aria-label="Task filter" class="status-toggle">
-            <mat-button-toggle value="Pending">Pending</mat-button-toggle>
-            <mat-button-toggle value="Completed">Completed</mat-button-toggle>
+            <mat-button-toggle value="Pending">Pending ({{getPendingTasksCount()}})</mat-button-toggle>
+            <mat-button-toggle value="Completed">Completed ({{getCompletedTasksCount()}})</mat-button-toggle>
         </mat-button-toggle-group>
     </div>
 

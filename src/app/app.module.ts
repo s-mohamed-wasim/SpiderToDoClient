@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -26,6 +27,7 @@ import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.compon
 import { ConfirmDialogComponent } from './_shared/confirm-dialog/confirm-dialog.component';
 import { authInterceptor } from './_interceptors/auth.interceptor';
 import { loaderInterceptor } from './_interceptors/loader.interceptor';
+import { DisableOnClickDirective } from './_shared/_directives/diable-on-click.directive';
 
 
 
@@ -38,7 +40,8 @@ import { loaderInterceptor } from './_interceptors/loader.interceptor';
     LoginComponent,
     SignupComponent,
     AddTaskDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    DisableOnClickDirective
   ],
   imports: [
     BrowserModule,
@@ -59,13 +62,15 @@ import { loaderInterceptor } from './_interceptors/loader.interceptor';
     MatCardModule,
     MatCheckboxModule,
     MatDialogModule,
+    MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
     NgxSpinnerModule.forRoot({ type: 'line-scale-party' }) //default spinner type
   ],
   providers: [
     provideAnimationsAsync(),
-    provideHttpClient(withInterceptors([authInterceptor,loaderInterceptor])),
+    // provideHttpClient(withInterceptors([authInterceptor,loaderInterceptor])), //use this line if you want loader bar every API request.
+    provideHttpClient(withInterceptors([authInterceptor])),
 
   ],
   bootstrap: [AppComponent]

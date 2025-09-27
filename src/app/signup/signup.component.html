@@ -1,4 +1,4 @@
-<div class="signup-container mt-5">
+<div class="signup-container">
     <!-- Logo -->
     <div class="logo-section">
         <img src="images/spider_todo_logo.png" alt="Spider Logo" class="logo-img" />
@@ -6,7 +6,7 @@
     </div>
 
     <!-- Sign Up Form -->
-    <form [formGroup]="signupForm" (ngSubmit)="createAccount()">
+    <form [formGroup]="signupForm">
         <!-- Full Name -->
         <mat-form-field appearance="outline" class="full-width">
             <mat-label>Full Name</mat-label>
@@ -29,8 +29,8 @@
         </mat-form-field>
 
         <!-- Sign Up Button -->
-        <button mat-flat-button color="primary" [disabled]="!signupForm.valid" class="full-width signup-btn"
-            type="submit">
+        <button mat-flat-button color="primary" [appDisableOnClick]="null" [disabled]="!signupForm.valid" class="full-width signup-btn"
+         (click)="createAccount()">
             Sign Up
         </button>
     </form>

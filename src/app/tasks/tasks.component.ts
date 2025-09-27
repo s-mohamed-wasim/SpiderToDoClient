@@ -5,6 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTaskDialogComponent } from '../add-task-dialog/add-task-dialog.component';
 import { ConfirmDialogComponent } from '../_shared/confirm-dialog/confirm-dialog.component';
+import { BusyService } from '../_services/busy.service';
+import { SnackbarService } from '../_services/snackbar.service';
 
 @Component({
   selector: 'app-tasks',
@@ -16,18 +18,23 @@ export class TasksComponent implements OnInit {
   tasks: Task[] = [];
   selectedTab: 'Pending' | 'Completed' = 'Pending';
 
-  constructor(private tasksService: TaskService, private toastr: ToastrService, private dialog: MatDialog) { }
+  constructor(private tasksService: TaskService, private toastr: ToastrService, private dialog: MatDialog
+              ,private busyService: BusyService, private snackbar: SnackbarService
+  ) { }
 
   ngOnInit(): void {
     this.getAllTasks();
   }
 
   getAllTasks() {
+    this.busyService.busy();
     this.tasksService.getTasks().subscribe({
       next: response => {
+        this.busyService.idle();
         this.tasks = response?.data;
       },
       error: error => {
+        this.busyService.idle();
         this.toastr.error(error);
         console.log(error);
       },
@@ -42,7 +49,8 @@ export class TasksComponent implements OnInit {
 
   addTask() {
     const dialogRef = this.dialog.open(AddTaskDialogComponent, {
-      width: '400px'
+      width: '400px',
+      data: {title:'Add New Task',message:'',taskId:0}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -54,7 +62,8 @@ export class TasksComponent implements OnInit {
 
         this.tasksService.createTask(newTask).subscribe({
           next: (created) => {
-            this.toastr.success("Created Successfully");
+            //this.toastr.success("Created Successfully");
+            this.snackbar.showSuccess('Task created successfully');
             this.getAllTasks();
           },
           error: (error) => {
@@ -69,7 +78,7 @@ export class TasksComponent implements OnInit {
   editTask(taskId: number) {
     const dialogRef = this.dialog.open(AddTaskDialogComponent, {
       width: '400px',
-      data: taskId
+      data: {title:'Edit Task',message:'',taskId:taskId}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -82,7 +91,8 @@ export class TasksComponent implements OnInit {
 
         this.tasksService.updateTask(updatedTask).subscribe({
           next: (created) => {
-            this.toastr.success("Updated Successfully");
+            //this.toastr.success("Task updated successfully");
+            this.snackbar.showSuccess('Task updated successfully');
             this.getAllTasks();
           },
           error: (error) => {
@@ -110,7 +120,8 @@ export class TasksComponent implements OnInit {
         this.tasksService.deleteTask(model).subscribe({
           next: (response) => {
             console.log(response);
-            this.toastr.success("Deleted Successfully");
+            //this.toastr.success("Deleted Successfully");
+            this.snackbar.showSuccess('Task deleted successfully');
             this.getAllTasks();
           },
           error: (error) => {
@@ -126,24 +137,41 @@ export class TasksComponent implements OnInit {
   toggleTaskStatus(task: Task) {
 
     let model = { Activity: -1, TaskIds: [task.taskId] };
+    let message = '';
+
+
 
     if (task.status === 'Pending') {
       model.Activity = 1;
+      message = 'Task marked as Completed';
       task.status = 'Completed';
     } else {
       model.Activity = 2;
+      message = 'Task marked as Pending';
       task.status = 'Pending';
     }
 
     this.tasksService.changeTasksStatus(model).subscribe({
       next: response => {
         console.log(response);
+        this.snackbar.showInfo(message);
       },
       error: error => {
         console.log(error);
+        this.snackbar.showError(message);
       },
       complete: () => { }
     })
+  }
+
+  getPendingTasksCount()
+  {
+    return this.tasks.filter(t => t.status === 'Pending').length;
+  }
+
+  getCompletedTasksCount()
+  {
+    return this.tasks.filter(t => t.status === 'Completed').length;
   }
 
 }
