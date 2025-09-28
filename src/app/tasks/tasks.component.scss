@@ -11,7 +11,7 @@
   position: sticky;
   top: 0;                     /* stick to top of container */
   z-index: 10;                 /* ensure it stays above tasks */
-  background: #fff;
+
   padding: 0.5rem 0;
   border-bottom: 1px solid #e0e0e0;
   
@@ -19,7 +19,6 @@
   justify-content: flex-start;
   align-items: center;
 }
-
 
 .status-toggle {
   width: 100%;               /* make group full width */
@@ -30,6 +29,20 @@
   flex: 1;                   /* each toggle takes equal space */
   text-align: center;
 }
+
+
+/* For the selected button */
+.status-toggle .mat-button-toggle-checked {
+  background-color: rgb(56, 112, 167) !important;
+  color: #fff !important;
+}
+
+::ng-deep .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after
+{
+  //: none; // to hide the tickmark
+  color: white !important;
+}
+
 
 /* Only the list scrolls */
 .tasks-list {
@@ -45,7 +58,7 @@
   /* card height will now auto-fit content */
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  background: #fff;
+  background: #f5f5f5;
   padding: 0.8rem;
 }
 
@@ -129,6 +142,19 @@
   flex-direction: column;
   align-items: center;
   gap: 0.4rem;
+
+  .no-tasks-img {
+    max-width: 350px;
+    width: 50%;
+    height: 100%;
+    opacity: 0.9;
+    overflow-y: hidden;
+
+    @media (max-width:'768px') {
+      height: 100%;
+      width: 100%;
+    }
+  }
 }
 
 .no-tasks mat-icon {

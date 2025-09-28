@@ -10,12 +10,12 @@ mat-dialog-content p {
 }
 
 mat-dialog-actions {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem 1.3rem 1rem;
 }
 
 ::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
   border-radius: 10px !important;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15) !important;
-  padding: 6px; 
+  //padding: 6px; 
 }
 
