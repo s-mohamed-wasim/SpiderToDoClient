@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { User } from '../_models/user';
@@ -30,8 +30,26 @@ export class AccountService {
 
   signup(model: any)
   {
-    console.log(model);
     return this.http.post<any>(this.apiBaseUrl+'/auth/register',model).pipe(
+      map(response => {
+        return response;
+      })
+    )
+  }
+
+  createForgotPasswordRequest(model: any)
+  {
+    return this.http.post<any>(this.apiBaseUrl+'/auth/forgot-password',model).pipe(
+      map(response => {
+        return response;
+      })
+    )
+  }
+
+  resetPassword(model: any,token: string | null)
+  {
+    const headers =  new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post<any>(this.apiBaseUrl+'/auth/reset-password',model,{headers}).pipe(
       map(response => {
         return response;
       })

@@ -28,6 +28,8 @@ import { ConfirmDialogComponent } from './_shared/confirm-dialog/confirm-dialog.
 import { authInterceptor } from './_interceptors/auth.interceptor';
 import { loaderInterceptor } from './_interceptors/loader.interceptor';
 import { DisableOnClickDirective } from './_shared/_directives/diable-on-click.directive';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 
@@ -41,7 +43,9 @@ import { DisableOnClickDirective } from './_shared/_directives/diable-on-click.d
     SignupComponent,
     AddTaskDialogComponent,
     ConfirmDialogComponent,
-    DisableOnClickDirective
+    DisableOnClickDirective,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
