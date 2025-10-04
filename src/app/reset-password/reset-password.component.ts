@@ -17,6 +17,7 @@ export class ResetPasswordComponent implements OnInit {
   resetPasswordForm! : FormGroup;
   hidePassword = true;
   hideConfirmPassword = true;
+  isPasswordResetDone: boolean = false;
 
   constructor(private route: ActivatedRoute, private snackbar: SnackbarService, private accountService: AccountService
     , private busyService: BusyService, private fb: FormBuilder, private router: Router
@@ -59,7 +60,7 @@ export class ResetPasswordComponent implements OnInit {
         if (response.out == 1) {
           this.snackbar.showSuccess('Password updated successfully','top');
           this.resetPasswordForm.reset();          
-          this.router.navigate(['/']);
+          this.isPasswordResetDone = true;
         
         }
         else {
@@ -70,7 +71,15 @@ export class ResetPasswordComponent implements OnInit {
       },
       error: (error) => {
         this.busyService.idle();
-        this.snackbar.showError(error);
+        if(error.headers?.get('WWW-Authenticate').includes("invalid_token")) //to get this, we need to add .WithExposedHeaders("WWW-Authenticate"); in the CORS policy in API
+        {
+          this.snackbar.showError('Link expired. Please request a new reset link.','top');
+          this.router.navigate(['forgot-password']);
+        }
+        else
+        {
+          this.snackbar.showError(error.message);
+        }
       },
       complete: () => {}
     })

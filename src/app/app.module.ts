@@ -30,6 +30,7 @@ import { loaderInterceptor } from './_interceptors/loader.interceptor';
 import { DisableOnClickDirective } from './_shared/_directives/diable-on-click.directive';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 
@@ -45,7 +46,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ConfirmDialogComponent,
     DisableOnClickDirective,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

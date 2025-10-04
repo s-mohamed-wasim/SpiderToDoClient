@@ -1,0 +1,55 @@
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="profile-avatar">
+            <!-- <img *ngIf="profileImageUrl; else defaultAvatar" [src]="profileImageUrl" alt="Profile Picture" /> -->
+            @if(accountService.currentUser()?.photoUrl)
+            {
+            <img [src]="accountService.currentUser()?.photoUrl" alt="Profile Picture" />
+            }
+            @else {
+            <img src="images/user_avatar.png" alt="Profile Picture" />
+            }
+        </div>
+
+        <div class="profile-actions">
+            <!-- Hidden file input -->
+            <input type="file" id="profileImage" accept="image/*" (change)="onFileSelected($event)" hidden />
+
+            <!-- Label acting as button -->
+            <label for="profileImage" class="upload-btn" mat-stroked-button color="primary">
+                <span>{{accountService.currentUser()?.photoUrl ? 'Change Picture':'Upload Picture'}}</span>
+            </label>
+
+            @if(accountService.currentUser()?.photoUrl)
+            {
+            <button mat-icon-button color="warn" (click)="onDeletePicture()" matTooltip="Remove Picture">
+                <mat-icon>delete</mat-icon>
+            </button>
+            }
+        </div>
+    </div>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onUpdate()" class="profile-form">
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="fullName" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" readonly />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Mobile</mat-label>
+            <input matInput formControlName="mobile" maxlength="10" />
+        </mat-form-field>
+
+        <button mat-flat-button color="primary" class="update-btn" type="submit" [disabled]="profileForm.invalid">
+            Update
+        </button>
+        <!-- <div>
+            <p>{{accountService.currentUser() | json}}</p>
+        </div> -->
+    </form>
+</div>

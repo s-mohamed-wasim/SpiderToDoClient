@@ -2,19 +2,22 @@
   <div class="container d-flex justify-content-between align-items-center">
     
     <!-- Left Section -->
-    <div class="d-flex align-items-center mx-1">
+    <div class="d-flex align-items-center mx-1" routerLink="/tasks">
       <img src="images/spider_todo_logo_white.png" alt="Spider Logo" class="logo me-2">
       <span class="navbar-brand mb-0 text-light h4">Spider To Do</span>
     </div>
 
     <!-- Right Section: Profile Avatar -->
     <div class="d-flex align-items-center">
+      <p class="nav-greet-user">
+        Hi, <span>{{accountService.currentUser()?.fullName}}</span>
+      </p>
       <button mat-icon-button [matMenuTriggerFor]="userMenu" class="p-0 border-0 bg-transparent">
-        <img src="images/user_avatar.png" alt="User Profile" class="profile-avatar">
+        <img [src]="accountService.currentUser()?.photoUrl ? accountService.currentUser()?.photoUrl : 'images/user_avatar.png'" alt="User Profile" class="profile-avatar">
       </button>
 
       <mat-menu #userMenu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item routerLink="/user-profile">
           <mat-icon>person</mat-icon>
           <span>Profile</span>
         </button>

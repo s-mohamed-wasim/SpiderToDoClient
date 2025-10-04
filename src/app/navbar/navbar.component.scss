@@ -18,3 +18,25 @@
   transition: transform 0.2s ease;
   border: 1px solid gray;
 }
+
+.nav-greet-user
+{
+  color: white;
+  margin-top: 14px;
+  padding-right: 8px;
+  font-size: small;
+}
+
+.nav-greet-user span {
+  display: inline-block;
+  max-width: 200px; /* adjust width */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+  font-weight: 500;
+
+  @media (max-width: '768px') {
+    max-width: 120px;
+  }
+}
