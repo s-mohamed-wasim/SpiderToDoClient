@@ -60,3 +60,11 @@
   background-color: rgb(56, 112, 167) !important;
   color: white !important;
 }
+
+
+.update-btn:disabled
+{
+  background-color: #005cbb;
+  color: #fff;
+  opacity: 0.5;
+}

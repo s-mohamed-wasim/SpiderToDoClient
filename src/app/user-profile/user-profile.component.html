@@ -37,19 +37,19 @@
 
         <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
-            <input matInput formControlName="email" readonly />
+            <input matInput formControlName="email" readonly/>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
             <mat-label>Mobile</mat-label>
-            <input matInput formControlName="mobile" maxlength="10" />
+            <input matInput formControlName="mobileNumber" maxlength="10" />
         </mat-form-field>
 
-        <button mat-flat-button color="primary" class="update-btn" type="submit" [disabled]="profileForm.invalid">
+        <button mat-flat-button color="primary" class="update-btn" type="submit" [disabled]="!profileForm.valid">
             Update
         </button>
         <!-- <div>
-            <p>{{accountService.currentUser() | json}}</p>
+            <p>{{profileForm.value| json}}</p>
         </div> -->
     </form>
 </div>

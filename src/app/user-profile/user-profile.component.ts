@@ -15,30 +15,57 @@ export class UserProfileComponent implements OnInit {
   profileForm!: FormGroup;
   profileImageUrl: string | null = null;
 
-  constructor(private fb: FormBuilder,private busyService: BusyService, private snackbar: SnackbarService,
-              public accountService: AccountService, private userService: UserService
-  ) {}
+  constructor(private fb: FormBuilder, private busyService: BusyService, private snackbar: SnackbarService,
+    public accountService: AccountService, private userService: UserService
+  ) { }
 
   ngOnInit(): void {
     this.profileForm = this.fb.group({
-      fullName: ['Mohamed Wasim', Validators.required],
-      email: ['mohamed.wasim@rheincs.com', [Validators.required, Validators.email]],
-      mobile: ['8778853326', [Validators.required, Validators.pattern('^[0-9]{10}$')]]
+      fullName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      email: ['', [Validators.required, Validators.email]],
+      mobileNumber: ['', [Validators.pattern('^[0-9]{10}$')]]
     });
+
+    this.getUser();
+  }
+
+  getUser() {
+    this.busyService.busy();
+    this.userService.getUser().subscribe({
+      next: (response) => {
+        this.busyService.idle();
+        if (response.out == 1) {
+          this.profileForm.patchValue({
+            'fullName': response.data[0]?.fullName,
+            'email': response.data[0]?.email,
+            'mobileNumber': response.data[0]?.mobileNumber
+          })
+        }
+        else {
+          if (response.error) {
+            this.snackbar.showError(response.error[0]?.errorMsg, 'bottom');
+          }
+        }
+      },
+      error: (error) => {
+        this.busyService.idle();
+        this.snackbar.showError(error.message);
+      },
+      complete: () => { }
+    })
   }
 
   onFileSelected(event: any): void {
 
     const file: File = event.target.files[0];
     const formData = new FormData();
-    formData.append('file',file);
+    formData.append('file', file);
 
     this.busyService.busy();
     this.userService.addPhoto(formData).subscribe({
       next: (response) => {
         this.busyService.idle();
-        if(response.out == 1)
-        {
+        if (response.out == 1) {
           this.accountService.currentUser.update(user => {
             if (!user) return user;
             return {
@@ -49,22 +76,20 @@ export class UserProfileComponent implements OnInit {
             };
           });
           localStorage.removeItem('user');
-          localStorage.setItem('user',JSON.stringify(this.accountService.currentUser()));
-          this.snackbar.showSuccess('Profile picture updated Successfully','bottom');
+          localStorage.setItem('user', JSON.stringify(this.accountService.currentUser()));
+          this.snackbar.showSuccess('Profile picture updated Successfully', 'bottom');
         }
-        else
-        {
-          if(response.error)
-          {
-            this.snackbar.showError(response.error[0]?.errorMsg,'bottom');
+        else {
+          if (response.error) {
+            this.snackbar.showError(response.error[0]?.errorMsg, 'bottom');
           }
         }
       },
       error: (error) => {
         this.busyService.idle();
-        this.snackbar.showError(error);
+        this.snackbar.showError(error.message);
       },
-      complete: () => {}
+      complete: () => { }
     })
 
     //following code block is to prview the image in image round container
@@ -80,17 +105,16 @@ export class UserProfileComponent implements OnInit {
   onDeletePicture(): void {
     //this.profileImageUrl = null;
     let photo: Photo = {
-      PhotoId:this.accountService.currentUser()?.photoId,
-      PhotoUrl:this.accountService.currentUser()?.photoUrl,
-      PublicId:this.accountService.currentUser()?.publicId
+      PhotoId: this.accountService.currentUser()?.photoId,
+      PhotoUrl: this.accountService.currentUser()?.photoUrl,
+      PublicId: this.accountService.currentUser()?.publicId
     };
 
     this.busyService.busy();
     this.userService.deletePhoto(photo).subscribe({
       next: (response) => {
         this.busyService.idle();
-        if(response.out == 1)
-        {
+        if (response.out == 1) {
           this.accountService.currentUser.update(user => {
             if (!user) return user;
             return {
@@ -101,28 +125,47 @@ export class UserProfileComponent implements OnInit {
             };
           });
           localStorage.removeItem('user');
-          localStorage.setItem('user',JSON.stringify(this.accountService.currentUser()));
-          this.snackbar.showSuccess('Profile picture delete successfully','bottom');
+          localStorage.setItem('user', JSON.stringify(this.accountService.currentUser()));
+          this.snackbar.showSuccess('Profile picture delete successfully', 'bottom');
         }
-        else
-        {
-          if(response.error)
-          {
-            this.snackbar.showError(response.error[0]?.errorMsg,'bottom');
+        else {
+          if (response.error) {
+            this.snackbar.showError(response.error[0]?.errorMsg, 'bottom');
           }
         }
       },
       error: (error) => {
-        this.snackbar.showError(error);
+        this.snackbar.showError(error.message);
       },
-      complete: () => {}
+      complete: () => { }
     })
   }
 
   onUpdate(): void {
     if (this.profileForm.valid) {
-      console.log(this.profileForm.value);
-      // Add your update API logic here
+
+      let model = { FullName: '', MobileNumber: '' };
+      model.FullName = this.profileForm.get('fullName')?.value;
+      model.MobileNumber = this.profileForm.get('mobileNumber')?.value;
+
+      this.busyService.busy();
+      this.userService.updateUser(model).subscribe({
+        next: (response) => {
+          this.busyService.idle();
+          if (response.out == 1) {
+            this.snackbar.showSuccess('user details updated successfully', 'bottom');
+          }
+          else {
+            if (response.error) {
+              this.snackbar.showError(response.error[0]?.errorMsg, 'bottom');
+            }
+          }
+        },
+        error: (error) => {
+          this.snackbar.showError(error.message);
+        },
+        complete: () => { }
+      })
     }
   }
 }

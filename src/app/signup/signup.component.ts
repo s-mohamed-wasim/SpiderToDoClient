@@ -19,7 +19,7 @@ export class SignupComponent implements OnInit {
   constructor(public accountService: AccountService, private fb: FormBuilder, private toastr: ToastrService
               ,private router: Router, private busyService: BusyService,private snackbar: SnackbarService) {
     this.signupForm = this.fb.group({
-      fullName: ['', Validators.required],
+      fullName: ['', [Validators.required, Validators.minLength(3),Validators.maxLength(100)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });

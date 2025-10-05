@@ -11,6 +11,24 @@ export class UserService {
   	constructor(private httpClient: HttpClient) { }
   
     apiBaseUrl = environment.apiBaseUrl;
+
+    getUser() : Observable<any>
+    {
+      return this.httpClient.get<any>(this.apiBaseUrl+'/users/get').pipe(
+        map(response => {
+          return response;
+        })
+      )
+    }
+
+    updateUser(model: any) : Observable<any>
+    {
+      return this.httpClient.post<any>(this.apiBaseUrl+'/users/update',model).pipe(
+        map(response => {
+          return response;
+        })
+      )
+    }
   
     addPhoto(formData: any) : Observable<any>
     {
