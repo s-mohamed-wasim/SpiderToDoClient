@@ -1,4 +1,3 @@
-5. profile edit along pith dp upload
 6. common app theme (in settings implementation)
 7. due date and time for task - implementation
 10. limiting the length to task title and description and showing tooltip 
@@ -8,3 +7,7 @@
 19. sorting and search option implementation.
 20. AI implementation for task suggestion
 21. help desk module
+22. admin screen
+    to see the users list
+    to activate/deactivate the user
+23. add tooltip to email in user profile page
