@@ -27,7 +27,9 @@
             "outputPath": "dist/spider-to-do-client",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -71,9 +73,6 @@
               "outputHashing": "all",
               "sourceMap": false,
               "extractLicenses": true,
-              "namedChunks": false,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "aot": true
             },
             "development": {
@@ -102,7 +101,10 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
