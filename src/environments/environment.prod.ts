@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://api.spidertodo.com/api'
+  apiBaseUrl: 'spidertodo-api-h7hnbja3h9gjcfcf.centralindia-01.azurewebsites.net'
 };
