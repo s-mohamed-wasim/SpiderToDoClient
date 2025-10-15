@@ -31,6 +31,7 @@ import { DisableOnClickDirective } from './_shared/_directives/diable-on-click.d
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ApplicationUsersComponent } from './application-users/application-users.component';
 
 
 
@@ -47,7 +48,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     DisableOnClickDirective,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ApplicationUsersComponent
   ],
   imports: [
     BrowserModule,

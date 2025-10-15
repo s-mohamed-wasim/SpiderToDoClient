@@ -21,6 +21,24 @@ export class UserService {
       )
     }
 
+    getAllUsers() : Observable<any>
+    {
+      return this.httpClient.get<any>(this.apiBaseUrl+'/users/get/all').pipe(
+        map(response => {
+          return response;
+        })
+      )
+    }
+
+    changeUsersStatus(model: any) : Observable<any>
+    {
+      return this.httpClient.post<any>(this.apiBaseUrl+'/users/change/status',model).pipe(
+        map(response => {
+          return response;
+        })
+      )
+    }
+
     updateUser(model: any) : Observable<any>
     {
       return this.httpClient.post<any>(this.apiBaseUrl+'/users/update',model).pipe(

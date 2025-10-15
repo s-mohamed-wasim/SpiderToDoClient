@@ -1,0 +1,60 @@
+<div class="user-management-container">
+    <!-- Header Row -->
+    <div class="header-row">
+        <div class="header-left">
+            <mat-checkbox [checked]="selectAll" (change)="toggleSelectAll()">Select All</mat-checkbox>
+        </div>
+
+        <div class="header-right">
+            <button mat-stroked-button color="primary" [matMenuTriggerFor]="actionMenu">
+                Action <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+
+            <mat-menu #actionMenu="matMenu">
+                <button mat-menu-item (click)="changeUserStatusBulk(2)">
+                    <mat-icon>check_circle</mat-icon> Activate
+                </button>
+                <button mat-menu-item (click)="changeUserStatusBulk(1)">
+                    <mat-icon>block</mat-icon> Deactivate
+                </button>
+                <button mat-menu-item (click)="sendEmail()">
+                    <mat-icon>email</mat-icon> Send Mail
+                </button>
+            </mat-menu>
+        </div>
+    </div>
+
+    <!-- Users List -->
+    <div class="users-list">
+        @for (user of users; track user.userId) {
+        <mat-card class="user-card" appearance="outlined">
+            <div class="user-row">
+                <div class="user-left">
+                    <mat-checkbox (change)="onUserSelect($event, user)"
+                        [checked]="selectedUserIds.includes(user.userId)">
+                    </mat-checkbox>
+                    <div class="user-avatar">
+                        <div class="avatar-circle">
+                            <img [src]="user?.photoUrl? user?.photoUrl : 'images/user_avatar.png'" alt="User Profile"
+                                class="profile-avatar">
+                        </div>
+                    </div>
+                    <div class="user-info">
+                        <h4>{{ user.fullName }}</h4>
+                        <p class="email">{{ user.email }}</p>
+                        <p class="created">Created On: {{ user.createdDate | date: 'dd-MMM-yyyy' }}</p>
+                    </div>
+                </div>
+
+                <div class="user-right">
+                    @if (user.isActive == 1) {
+                    <button mat-flat-button color="warn" (click)="changeUserStatus(1, user.userId)">Deactivate</button>
+                    } @else {
+                    <button mat-flat-button color="primary" (click)="changeUserStatus(2, user.userId)">Activate</button>
+                    }
+                </div>
+            </div>
+        </mat-card>
+        }
+    </div>
+</div>

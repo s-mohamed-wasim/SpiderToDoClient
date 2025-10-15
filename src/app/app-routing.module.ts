@@ -7,6 +7,8 @@ import { authGuard } from './_guards/auth.guard';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ApplicationUsersComponent } from './application-users/application-users.component';
+import { adminGuard } from './_guards/admin.guard';
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -14,7 +16,8 @@ const routes: Routes = [
   {path:'forgot-password',component:ForgotPasswordComponent},
   {path:'reset-password',component:ResetPasswordComponent},
   {path:'tasks',component:TasksComponent, canActivate:[authGuard]},
-  {path:'user-profile',component:UserProfileComponent, canActivate:[authGuard]}
+  {path:'user-profile',component:UserProfileComponent, canActivate:[authGuard]},
+  {path:'application-users',component:ApplicationUsersComponent, canActivate:[adminGuard]}
 ];
 
 @NgModule({

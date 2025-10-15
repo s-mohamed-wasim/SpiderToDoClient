@@ -1,8 +1,8 @@
 <nav class="navbar navbar-light bg-cust shadow-sm py-3">
   <div class="container d-flex justify-content-between align-items-center">
-    
+
     <!-- Left Section -->
-    <div class="d-flex align-items-center mx-1" routerLink="/tasks">
+    <div class="d-flex align-items-center mx-1" style="cursor: pointer;" routerLink="/tasks">
       <img src="images/spider_todo_logo_white.png" alt="Spider Logo" class="logo me-2">
       <span class="navbar-brand mb-0 text-light h4">Spider To Do</span>
     </div>
@@ -13,7 +13,9 @@
         Hi, <span>{{accountService.currentUser()?.fullName}}</span>
       </p>
       <button mat-icon-button [matMenuTriggerFor]="userMenu" class="p-0 border-0 bg-transparent">
-        <img [src]="accountService.currentUser()?.photoUrl ? accountService.currentUser()?.photoUrl : 'images/user_avatar.png'" alt="User Profile" class="profile-avatar">
+        <img
+          [src]="accountService.currentUser()?.photoUrl ? accountService.currentUser()?.photoUrl : 'images/user_avatar.png'"
+          alt="User Profile" class="profile-avatar">
       </button>
 
       <mat-menu #userMenu="matMenu">
@@ -21,6 +23,13 @@
           <mat-icon>person</mat-icon>
           <span>Profile</span>
         </button>
+        @if(accountService.currentUser()?.role == 'Admin')
+        {
+        <button mat-menu-item routerLink="/application-users">
+          <mat-icon>people</mat-icon>
+          <span>App Users</span>
+        </button>
+        }
         <button mat-menu-item (click)="logout()">
           <mat-icon>logout</mat-icon>
           <span>Logout</span>
