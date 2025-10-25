@@ -19,6 +19,8 @@ export class TasksComponent implements OnInit {
   tasks: Task[] = [];
   filteredTasks: Task[] = [];
   selectedTab: 'Pending' | 'Completed' = 'Pending';
+  canDrag = false;
+  private holdTimer: any;
 
   constructor(private tasksService: TaskService, private toastr: ToastrService, private dialog: MatDialog
     , private busyService: BusyService, private snackbar: SnackbarService, private cdr: ChangeDetectorRef
@@ -223,6 +225,27 @@ export class TasksComponent implements OnInit {
       },
       complete: () => {}
     })
+  }
+
+  
+  onHoldStart(event: Event) {
+    // Prevent accidental scroll-drag conflict
+    event.stopPropagation();
+
+    // Start 1-second timer
+    this.holdTimer = setTimeout(() => {
+      this.canDrag = true;
+    }, 1000); // adjust to 1500 or 2000 ms if you want 1.5–2 seconds
+  }
+
+  onHoldEnd() {
+    // Cancel timer if user releases early
+    clearTimeout(this.holdTimer);
+
+    // Small delay to allow one drag before disabling again
+    setTimeout(() => {
+      this.canDrag = false;
+    }, 500);
   }
 
 }
