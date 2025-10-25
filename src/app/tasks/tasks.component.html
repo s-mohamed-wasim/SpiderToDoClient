@@ -1,16 +1,21 @@
 <div class="tasks-container">
     <!-- Top bar with toggle only -->
     <div class="tasks-header">
-        <mat-button-toggle-group [(ngModel)]="selectedTab" aria-label="Task filter" class="status-toggle">
+        <mat-button-toggle-group [(ngModel)]="selectedTab" aria-label="Task filter" class="status-toggle" (change)="filterTasks()">
             <mat-button-toggle  value="Pending">Pending ({{getPendingTasksCount()}})</mat-button-toggle>
             <mat-button-toggle  value="Completed">Completed ({{getCompletedTasksCount()}})</mat-button-toggle>
         </mat-button-toggle-group>
     </div>
 
+    <!-- <div>
+        {{filteredTasks | json}}
+    </div> -->
+
     <!-- Task List -->
-    <div class="tasks-list">
-        @for (task of filteredTasks; track task.taskId) {
-        <mat-card class="task-card" appearance="outlined">
+    <div cdkDropList (cdkDropListDropped)="drop($event)" class="tasks-list">
+        @for (task of filteredTasks; track $index) {
+        <mat-card class="task-card" appearance="outlined" cdkDrag>
+            
             <div class="task-row">
 
                 <!-- Left: Checkbox -->

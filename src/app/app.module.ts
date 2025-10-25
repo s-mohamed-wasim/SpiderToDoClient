@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -73,7 +74,8 @@ import { ApplicationUsersComponent } from './application-users/application-users
     MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxSpinnerModule.forRoot({ type: 'line-scale-party' }) //default spinner type
+    NgxSpinnerModule.forRoot({ type: 'line-scale-party' }), //default spinner type
+    DragDropModule 
   ],
   providers: [
     provideAnimationsAsync(),

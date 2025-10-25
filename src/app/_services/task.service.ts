@@ -31,8 +31,6 @@ export class TaskService {
     )
   }
 
-  
-
   changeTasksStatus(model: any) : Observable<any>
   {
     return this.httpClient.post<any>(this.apiBaseUrl+'/tasks/change/status',model).pipe(
@@ -54,6 +52,15 @@ export class TaskService {
   updateTask(model: any) : Observable<any>
   {
     return this.httpClient.post<any>(this.apiBaseUrl+'/tasks/update',model).pipe(
+      map(response => {
+        return response;
+      })
+    )
+  }
+
+  updateTasksDisplayOrder(model: any) : Observable<any>
+  {
+    return this.httpClient.post<any>(this.apiBaseUrl+'/tasks/update/displayorder',model).pipe(
       map(response => {
         return response;
       })

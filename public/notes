@@ -17,4 +17,8 @@
 26. pointer on spider to do navigation
 27. show task completed date
 28. google based login
-29. back button clicked issue by rish
+29. back button clicked issue by rishi
+30. send whatsapp notification or web app notification
+31. whenever an operation is performed, check whether the user is active or not.
+32. pin the task feature. (check for long press event in web app)
+33. changing name in userprofile should update the name in navbar as well (update the signal)

@@ -60,6 +60,17 @@
   border-radius: 8px;
   background: #ededed;
   padding: 0.8rem;
+  cursor: move;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.task-card.cdk-drag-preview {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.task-card.cdk-drag-placeholder {
+  opacity: 0;
 }
 
 .task-row {

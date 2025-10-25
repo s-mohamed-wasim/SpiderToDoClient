@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TaskService } from '../_services/task.service';
 import { Task } from '../_models/task';
 import { ToastrService } from 'ngx-toastr';
@@ -7,6 +7,7 @@ import { AddTaskDialogComponent } from '../add-task-dialog/add-task-dialog.compo
 import { ConfirmDialogComponent } from '../_shared/confirm-dialog/confirm-dialog.component';
 import { BusyService } from '../_services/busy.service';
 import { SnackbarService } from '../_services/snackbar.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-tasks',
@@ -16,10 +17,11 @@ import { SnackbarService } from '../_services/snackbar.service';
 export class TasksComponent implements OnInit {
 
   tasks: Task[] = [];
+  filteredTasks: Task[] = [];
   selectedTab: 'Pending' | 'Completed' = 'Pending';
 
   constructor(private tasksService: TaskService, private toastr: ToastrService, private dialog: MatDialog
-              ,private busyService: BusyService, private snackbar: SnackbarService
+    , private busyService: BusyService, private snackbar: SnackbarService, private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +33,8 @@ export class TasksComponent implements OnInit {
     this.tasksService.getTasks().subscribe({
       next: response => {
         this.busyService.idle();
-        this.tasks = response?.data;
+        this.tasks = response?.data || [];
+         this.filterTasks();
       },
       error: error => {
         this.busyService.idle();
@@ -42,15 +45,19 @@ export class TasksComponent implements OnInit {
     })
   }
 
-
-  get filteredTasks(): Task[] {
-    return this.tasks.filter(task => task.status === this.selectedTab);
+  filterTasks() {
+  this.filteredTasks = this.tasks.filter(t => t.status === this.selectedTab);
   }
+
+
+  // get filteredTasks(): Task[] {
+  //   return this.tasks.filter(task => task.status === this.selectedTab);
+  // }
 
   addTask() {
     const dialogRef = this.dialog.open(AddTaskDialogComponent, {
       width: '400px',
-      data: {title:'Add New Task',message:'',taskId:0}
+      data: { title: 'Add New Task', message: '', taskId: 0 }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -78,7 +85,7 @@ export class TasksComponent implements OnInit {
   editTask(taskId: number) {
     const dialogRef = this.dialog.open(AddTaskDialogComponent, {
       width: '400px',
-      data: {title:'Edit Task',message:'',taskId:taskId}
+      data: { title: 'Edit Task', message: '', taskId: taskId }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -105,7 +112,7 @@ export class TasksComponent implements OnInit {
   }
 
   deleteTask(taskId: number) {
-    
+
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '350px',
       data: { message: 'Are you sure you want to delete this task?' }
@@ -153,8 +160,10 @@ export class TasksComponent implements OnInit {
 
     this.tasksService.changeTasksStatus(model).subscribe({
       next: response => {
+        this.cdr.detectChanges();
         console.log(response);
         this.snackbar.showInfo(message);
+        this.filterTasks();
       },
       error: error => {
         console.log(error);
@@ -164,14 +173,56 @@ export class TasksComponent implements OnInit {
     })
   }
 
-  getPendingTasksCount()
-  {
+  getPendingTasksCount() {
     return this.tasks.filter(t => t.status === 'Pending').length;
   }
 
-  getCompletedTasksCount()
-  {
+  getCompletedTasksCount() {
     return this.tasks.filter(t => t.status === 'Completed').length;
+  }
+
+  // drop(event: CdkDragDrop<string[]>) {
+  //   moveItemInArray(this.filteredTasks, event.previousIndex, event.currentIndex);
+  // }
+
+  drop(event: CdkDragDrop<Task[]>) {
+    this.updateDisplayOrderInDataBase(event.previousIndex, event.currentIndex);
+
+    const filtered = this.filteredTasks;
+
+    moveItemInArray(filtered, event.previousIndex, event.currentIndex);
+
+    // Reflect updated order back to main tasks array
+    const updated = this.tasks.filter(t => t.status !== this.selectedTab);
+    this.tasks = [...updated, ...filtered];
+
+    this.cdr.detectChanges();
+
+  }
+
+  updateDisplayOrderInDataBase(prevInd: number, curInd: number)
+  {
+    let model = {FirstTaskId:-1,SecondTaskId:-1};
+    model.FirstTaskId = this.filteredTasks[prevInd].taskId;
+    model.SecondTaskId = this.filteredTasks[curInd].taskId;
+
+    this.tasksService.updateTasksDisplayOrder(model).subscribe({
+      next: (response) => {
+        if(response.out == 1)
+        {
+          console.log(response);
+        }
+        else {
+          if (response.error) {
+            this.snackbar.showError(response.error[0]?.errorMsg,'top');
+          }
+        }
+      },
+      error: (error) => {
+        console.log(error.message);
+      },
+      complete: () => {}
+    })
   }
 
 }
