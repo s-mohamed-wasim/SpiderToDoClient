@@ -64,6 +64,12 @@
   transition: box-shadow 0.2s ease-in-out;
 }
 
+.task-card.drag-ready {
+  cursor: grab;
+  transform: scale(1.02);
+  transition: transform 0.2s;
+}
+
 .task-card.cdk-drag-preview {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
