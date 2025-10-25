@@ -12,9 +12,17 @@
     </div> -->
 
     <!-- Task List -->
-    <div cdkDropList (cdkDropListDropped)="drop($event)" class="tasks-list">
+
+
+    <!-- <div cdkDropList (cdkDropListDropped)="drop($event)" class="tasks-list">
         @for (task of filteredTasks; track $index) {
-        <mat-card class="task-card" appearance="outlined" cdkDrag>
+        <mat-card class="task-card" appearance="outlined" cdkDrag> -->
+
+    <!-- once solved the drag and scroll issue uncomment the above three lines of code and comment the following div tag -->
+
+    <div class="tasks-list">
+        @for (task of filteredTasks; track $index) {
+        <mat-card class="task-card" appearance="outlined">
             
             <div class="task-row">
 
