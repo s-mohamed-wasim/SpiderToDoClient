@@ -235,7 +235,7 @@ export class TasksComponent implements OnInit {
     // Start 1-second timer
     this.holdTimer = setTimeout(() => {
       this.canDrag = true;
-    }, 700); // adjust to 1500 or 2000 ms if you want 1.5–2 seconds
+    }, 300); // adjust to 1500 or 2000 ms if you want 1.5–2 seconds
   }
 
   onHoldEnd() {
