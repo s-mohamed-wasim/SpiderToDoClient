@@ -36,7 +36,7 @@ export class TasksComponent implements OnInit {
       next: response => {
         this.busyService.idle();
         this.tasks = response?.data || [];
-         this.filterTasks();
+        this.filterTasks();
       },
       error: error => {
         this.busyService.idle();
@@ -48,7 +48,7 @@ export class TasksComponent implements OnInit {
   }
 
   filterTasks() {
-  this.filteredTasks = this.tasks.filter(t => t.status === this.selectedTab);
+    this.filteredTasks = this.tasks.filter(t => t.status === this.selectedTab);
   }
 
 
@@ -67,6 +67,7 @@ export class TasksComponent implements OnInit {
         const newTask: Partial<Task> = {
           title: result.title,
           description: result.description,
+          dueDate: result.dueDate
         };
 
         this.tasksService.createTask(newTask).subscribe({
@@ -96,6 +97,7 @@ export class TasksComponent implements OnInit {
           taskId: result.taskId,
           title: result.title,
           description: result.description,
+          dueDate: result.dueDate
         };
 
         this.tasksService.updateTask(updatedTask).subscribe({
@@ -202,32 +204,30 @@ export class TasksComponent implements OnInit {
 
   }
 
-  updateDisplayOrderInDataBase(prevInd: number, curInd: number)
-  {
-    let model = {FirstTaskId:-1,SecondTaskId:-1};
+  updateDisplayOrderInDataBase(prevInd: number, curInd: number) {
+    let model = { FirstTaskId: -1, SecondTaskId: -1 };
     model.FirstTaskId = this.filteredTasks[prevInd].taskId;
     model.SecondTaskId = this.filteredTasks[curInd].taskId;
 
     this.tasksService.updateTasksDisplayOrder(model).subscribe({
       next: (response) => {
-        if(response.out == 1)
-        {
+        if (response.out == 1) {
           console.log(response);
         }
         else {
           if (response.error) {
-            this.snackbar.showError(response.error[0]?.errorMsg,'top');
+            this.snackbar.showError(response.error[0]?.errorMsg, 'top');
           }
         }
       },
       error: (error) => {
         console.log(error.message);
       },
-      complete: () => {}
+      complete: () => { }
     })
   }
 
-  
+
   onHoldStart(event: Event) {
     // Prevent accidental scroll-drag conflict
     event.stopPropagation();
@@ -248,4 +248,11 @@ export class TasksComponent implements OnInit {
     }, 500);
   }
 
+  isOverdue(dueDate: string | Date | null | undefined): boolean {
+    if (!dueDate) return false;
+    const due = new Date(dueDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return due < today;
+  }
 }

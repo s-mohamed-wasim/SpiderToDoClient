@@ -1,9 +1,10 @@
 <div class="tasks-container">
     <!-- Top bar with toggle only -->
     <div class="tasks-header">
-        <mat-button-toggle-group [(ngModel)]="selectedTab" aria-label="Task filter" class="status-toggle" (change)="filterTasks()">
-            <mat-button-toggle  value="Pending">Pending ({{getPendingTasksCount()}})</mat-button-toggle>
-            <mat-button-toggle  value="Completed">Completed ({{getCompletedTasksCount()}})</mat-button-toggle>
+        <mat-button-toggle-group [(ngModel)]="selectedTab" aria-label="Task filter" class="status-toggle"
+            (change)="filterTasks()">
+            <mat-button-toggle value="Pending">Pending ({{getPendingTasksCount()}})</mat-button-toggle>
+            <mat-button-toggle value="Completed">Completed ({{getCompletedTasksCount()}})</mat-button-toggle>
         </mat-button-toggle-group>
     </div>
 
@@ -16,16 +17,15 @@
 
     <div cdkDropList (cdkDropListDropped)="drop($event)" class="tasks-list">
         @for (task of filteredTasks; track $index) {
-        <mat-card class="task-card" appearance="outlined" cdkDrag [cdkDragDisabled]="!canDrag" [class.drag-ready]="canDrag"  
-        (touchstart)="onHoldStart($event)"
-        (touchend)="onHoldEnd()"
-        (mousedown)="onHoldStart($event)"
-        (mouseup)="onHoldEnd()">
+        <mat-card class="task-card" appearance="outlined" cdkDrag [cdkDragDisabled]="!canDrag"
+            [class.drag-ready]="canDrag" (touchstart)="onHoldStart($event)" (touchend)="onHoldEnd()"
+            (mousedown)="onHoldStart($event)" (mouseup)="onHoldEnd()">
             <div class="task-row">
 
                 <!-- Left: Checkbox -->
                 <div class="task-left">
-                    <mat-checkbox [checked]="task.status === 'Completed'" color="primary" (change)="toggleTaskStatus(task)"></mat-checkbox>
+                    <mat-checkbox [checked]="task.status === 'Completed'" color="primary"
+                        (change)="toggleTaskStatus(task)"></mat-checkbox>
                 </div>
 
                 <!-- Middle: Task details -->
@@ -42,8 +42,15 @@
 
                     <div class="task-dates">
                         <span class="date-label">Created:</span>
-                        <span>{{ task.createdDate | date: 'dd-MMM-yyyy' }}</span>
+                        <span>{{ task.createdDate | date: 'dd/MM/yyyy' }}</span>
                     </div>
+
+                    @if (task.dueDate) {
+                    <div class="task-dates">
+                        <span class="date-label">Due:</span>
+                        <span [class.overdue]="isOverdue(task.dueDate)">{{ task.dueDate | date: 'dd/MM/yyyy' }}</span>
+                    </div>
+                    }
                 </div>
 
 
