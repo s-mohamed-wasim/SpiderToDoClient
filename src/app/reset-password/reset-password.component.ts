@@ -14,7 +14,7 @@ export class ResetPasswordComponent implements OnInit {
 
   token: string | null = null;
   email: string = '';
-  resetPasswordForm! : FormGroup;
+  resetPasswordForm!: FormGroup;
   hidePassword = true;
   hideConfirmPassword = true;
   isPasswordResetDone: boolean = false;
@@ -24,8 +24,8 @@ export class ResetPasswordComponent implements OnInit {
   ) {
     this.resetPasswordForm = this.fb.group({
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['',[Validators.required]]
-    },{
+      confirmPassword: ['', [Validators.required]]
+    }, {
       validators: [this.passwordMatchValidator]
     })
   }
@@ -39,50 +39,52 @@ export class ResetPasswordComponent implements OnInit {
     }
     return null;
   }
-  
-  ngOnInit(): void {
-		this.route.queryParams.subscribe(params => {
-		  this.token = params['token'];  
-		  this.email = params['email'];  
-		});
-	}
 
-  resetPassword()
-  {
-    let model = {Email:'',NewPassword:''};
+  ngOnInit(): void {
+    if (this.accountService.currentUser()) {
+      this.router.navigate(['/tasks'], { replaceUrl: true });
+      return;
+    }
+    this.route.queryParams.subscribe(params => {
+      this.token = params['token'];
+      this.email = params['email'];
+    });
+  }
+
+  resetPassword() {
+    let model = { Email: '', NewPassword: '' };
     model.Email = this.email;
     model.NewPassword = this.resetPasswordForm.get('password')?.value;
 
     this.busyService.busy();
-    this.accountService.resetPassword(model,this.token).subscribe({
+    this.accountService.resetPassword(model, this.token).subscribe({
       next: (response) => {
         this.busyService.idle();
         if (response.out == 1) {
-          this.snackbar.showSuccess('Password updated successfully','top');
-          this.resetPasswordForm.reset();          
+          this.snackbar.showSuccess('Password updated successfully', 'top');
+          this.resetPasswordForm.reset();
           this.isPasswordResetDone = true;
-        
+
         }
         else {
           if (response.error) {
-            this.snackbar.showError(response.error[0]?.errorMsg,'top');
+            this.snackbar.showError(response.error[0]?.errorMsg, 'top');
           }
         }
       },
       error: (error) => {
         this.busyService.idle();
-        if(error.headers?.get('WWW-Authenticate').includes("invalid_token")) //to get this, we need to add .WithExposedHeaders("WWW-Authenticate"); in the CORS policy in API
+        if (error.headers?.get('WWW-Authenticate').includes("invalid_token")) //to get this, we need to add .WithExposedHeaders("WWW-Authenticate"); in the CORS policy in API
         {
-          this.snackbar.showError('Link expired. Please request a new reset link.','top');
+          this.snackbar.showError('Link expired. Please request a new reset link.', 'top');
           this.router.navigate(['forgot-password']);
         }
-        else
-        {
+        else {
           this.snackbar.showError(error.message);
         }
       },
-      complete: () => {}
+      complete: () => { }
     })
   }
-	
+
 }

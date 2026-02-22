@@ -17,16 +17,18 @@ export class SignupComponent implements OnInit {
   hidePassword = true;
 
   constructor(public accountService: AccountService, private fb: FormBuilder, private toastr: ToastrService
-              ,private router: Router, private busyService: BusyService,private snackbar: SnackbarService) {
+    , private router: Router, private busyService: BusyService, private snackbar: SnackbarService) {
     this.signupForm = this.fb.group({
-      fullName: ['', [Validators.required, Validators.minLength(3),Validators.maxLength(100)]],
+      fullName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
   ngOnInit(): void {
-
+    if (this.accountService.currentUser()) {
+      this.router.navigate(['/tasks'], { replaceUrl: true });
+    }
   }
 
   createAccount() {
@@ -43,7 +45,7 @@ export class SignupComponent implements OnInit {
         console.log(response);
         if (response.out == 1) {
           //this.toastr.info('user created successfullly');
-          this.snackbar.showInfo('user created successfully','top');
+          this.snackbar.showInfo('user created successfully', 'top');
           this.signupForm.reset();
           this.router.navigate(['/']);
         }

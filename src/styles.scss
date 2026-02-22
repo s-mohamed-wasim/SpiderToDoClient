@@ -41,11 +41,14 @@ body {
   --mdc-theme-primary: var(--theme-primary);
   --mdc-theme-on-primary: #ffffff;
 
-  /* Button Overrides */
+  /* Button & FAB Overrides */
   --mdc-filled-button-container-color: var(--theme-primary) !important;
   --mdc-protected-button-container-color: var(--theme-primary) !important;
   --mdc-text-button-label-text-color: var(--theme-primary) !important;
   --mdc-outlined-button-label-text-color: var(--theme-primary) !important;
+  --mdc-fab-container-color: var(--theme-primary) !important;
+  --mdc-fab-small-container-color: var(--theme-primary) !important;
+  --mdc-extended-fab-container-color: var(--theme-primary) !important;
 
   /* Checkbox & Radio Overrides */
   --mdc-checkbox-selected-icon-color: var(--theme-primary) !important;

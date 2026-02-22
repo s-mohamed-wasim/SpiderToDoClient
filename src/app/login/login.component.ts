@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   hidePassword = true;
 
-  constructor(public accountService: AccountService, private fb: FormBuilder, private toastr: ToastrService, 
-              private router: Router,private busyService: BusyService,private snackbar: SnackbarService) {
+  constructor(public accountService: AccountService, private fb: FormBuilder, private toastr: ToastrService,
+    private router: Router, private busyService: BusyService, private snackbar: SnackbarService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -25,7 +25,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    if (this.accountService.currentUser()) {
+      this.router.navigate(['/tasks'], { replaceUrl: true });
+    }
   }
 
   login() {
@@ -43,13 +45,13 @@ export class LoginComponent implements OnInit {
         if (response.out == 1) {
           //this.toastr.success('login successful');
           this.snackbar.showSuccess('login successful');
-          this.loginForm.reset();          
+          this.loginForm.reset();
           this.router.navigate(['tasks']);
         }
         else {
           if (response.error) {
             //this.toastr.error(response.error[0]?.errorMsg);
-            this.snackbar.showError(response.error[0]?.errorMsg,'top');
+            this.snackbar.showError(response.error[0]?.errorMsg, 'top');
           }
         }
       },
