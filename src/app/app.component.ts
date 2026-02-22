@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AccountService } from './_services/account.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { ThemeService } from './_services/theme.service';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import { Router } from '@angular/router';
@@ -14,11 +15,12 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'SpiderToDoClient';
 
-  constructor(public accountService: AccountService,private router: Router) {
+  constructor(public accountService: AccountService, private router: Router, private themeService: ThemeService) {
 
   }
 
   ngOnInit() {
+    this.themeService.loadTheme();
     this.setCurrentUser();
   }
 

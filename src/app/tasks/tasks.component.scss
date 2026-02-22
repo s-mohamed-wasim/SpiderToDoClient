@@ -1,6 +1,7 @@
 .tasks-container {
-      position: relative; /* for fab positioning */
-    height: 100%;
+  position: relative;
+  /* for fab positioning */
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -9,36 +10,40 @@
 
 .tasks-header {
   position: sticky;
-  top: 0;                     /* stick to top of container */
-  z-index: 10;                 /* ensure it stays above tasks */
+  top: 0;
+  /* stick to top of container */
+  z-index: 10;
+  /* ensure it stays above tasks */
 
   padding: 0.5rem 0;
   border-bottom: 1px solid #e0e0e0;
-  
+
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
 .status-toggle {
-  width: 100%;               /* make group full width */
-  display: flex;             /* distribute buttons */
+  width: 100%;
+  /* make group full width */
+  display: flex;
+  /* distribute buttons */
 }
 
 .status-toggle .mat-button-toggle {
-  flex: 1;                   /* each toggle takes equal space */
+  flex: 1;
+  /* each toggle takes equal space */
   text-align: center;
 }
 
 
 /* For the selected button */
 .status-toggle .mat-button-toggle-checked {
-  background-color: rgb(56, 112, 167) !important;
+  background-color: var(--theme-primary) !important;
   color: #fff !important;
 }
 
-::ng-deep .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after
-{
+::ng-deep .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
   //: none; // to hide the tickmark
   color: white !important;
 }
@@ -46,8 +51,10 @@
 
 /* Only the list scrolls */
 .tasks-list {
-  flex: 1;                  /* takes remaining height */
-  overflow-y: auto;         /* scrollable */
+  flex: 1;
+  /* takes remaining height */
+  overflow-y: auto;
+  /* scrollable */
   padding: 1rem 0;
   display: flex;
   flex-direction: column;
@@ -81,7 +88,8 @@
 
 .task-row {
   display: flex;
-  align-items: center;       /* ✅ center everything vertically */
+  align-items: center;
+  /* ✅ center everything vertically */
   justify-content: space-between;
   gap: 1rem;
 }
@@ -89,7 +97,8 @@
 /* Left section (checkbox) */
 .task-left {
   display: flex;
-  align-items: center;       /* ✅ checkbox vertically centered */
+  align-items: center;
+  /* ✅ checkbox vertically centered */
 }
 
 /* Middle section (details stacked) */
@@ -111,7 +120,8 @@
 /* Strike-through style when completed */
 .task-title.completed {
   text-decoration: line-through;
-  color: #999;   /* greyed out */
+  color: #999;
+  /* greyed out */
 }
 
 .task-desc {
@@ -140,7 +150,8 @@
   display: flex;
   flex-direction: row;
   gap: 0rem;
-  align-items: center;       /* ✅ icons also vertically centered */
+  align-items: center;
+  /* ✅ icons also vertically centered */
 }
 
 
@@ -185,14 +196,16 @@
   bottom: 4rem;
   right: 2rem;
   z-index: 1001;
-  box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* tasks.component.css */
 .edit-btn mat-icon {
-  color: #58718b; /* blue for edit */
+  color: var(--theme-primary);
+  /* blue for edit */
 }
 
 .delete-btn mat-icon {
-  color: #58718b; /* red for delete */
+  color: var(--theme-primary);
+  /* red for delete */
 }

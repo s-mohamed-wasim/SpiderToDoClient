@@ -1,15 +1,18 @@
 .signup-container {
   max-width: 320px;
-  margin: auto;                /* center horizontally */
+  margin: auto;
+  /* center horizontally */
   padding: 5px;
 
   /* Flexbox centering */
   display: flex;
   flex-direction: column;
-  justify-content: center;     /* vertical centering */
-  align-items: center;         /* horizontal centering */
+  justify-content: center;
+  /* vertical centering */
+  align-items: center;
+  /* horizontal centering */
 
-  min-height: 81vh;           
+  min-height: 81vh;
 }
 
 .logo-section {
@@ -36,9 +39,8 @@
   margin-top: 15px;
 }
 
-.signup-btn:disabled
-{
-  background-color: #005cbb;
+.signup-btn:disabled {
+  background-color: var(--theme-primary);
   color: #fff;
   opacity: 0.5;
 }
@@ -71,7 +73,7 @@
 
 .login-link a {
   text-decoration: none;
-  color: #3f51b5;
+  color: var(--theme-primary);
   font-size: 14px;
 }
 
@@ -79,6 +81,7 @@
   background-color: #4caf50 !important;
   color: white !important;
 }
+
 .toast-error {
   background-color: #f44336 !important;
   color: white !important;

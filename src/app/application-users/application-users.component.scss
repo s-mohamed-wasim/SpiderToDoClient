@@ -40,8 +40,8 @@
   font-weight: 500;
   font-size: 0.9rem;
   text-transform: none;
-  color: #3870a7;
-  border-color: #3870a7;
+  color: var(--theme-primary);
+  border-color: var(--theme-primary);
 }
 
 .header-right mat-icon {
@@ -98,7 +98,7 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background-color: #3870a7;
+  background-color: var(--theme-primary);
   color: white;
   font-weight: 600;
   font-size: 1rem;
@@ -163,11 +163,13 @@
   }
 }
 
-  .profile-avatar {
+.profile-avatar {
   width: 40px;
   height: 40px;
-  border-radius: 50%; /* Makes it perfectly round */
-  object-fit: cover;  /* Ensures image stays nicely cropped */
+  border-radius: 50%;
+  /* Makes it perfectly round */
+  object-fit: cover;
+  /* Ensures image stays nicely cropped */
   cursor: pointer;
   transition: transform 0.2s ease;
   border: 1px solid gray;

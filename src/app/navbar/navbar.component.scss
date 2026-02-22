@@ -1,26 +1,25 @@
-.logo
-{
-    width: 30px;
-    height: 30px;
+.logo {
+  width: 30px;
+  height: 30px;
 }
 
-.bg-cust
-{
-  background-color: rgb(56 112 167) !important;
+.bg-cust {
+  background-color: var(--theme-primary) !important;
 }
 
 .profile-avatar {
   width: 40px;
   height: 40px;
-  border-radius: 50%; /* Makes it perfectly round */
-  object-fit: cover;  /* Ensures image stays nicely cropped */
+  border-radius: 50%;
+  /* Makes it perfectly round */
+  object-fit: cover;
+  /* Ensures image stays nicely cropped */
   cursor: pointer;
   transition: transform 0.2s ease;
   border: 1px solid gray;
 }
 
-.nav-greet-user
-{
+.nav-greet-user {
   color: white;
   margin-top: 14px;
   padding-right: 8px;
@@ -29,7 +28,8 @@
 
 .nav-greet-user span {
   display: inline-block;
-  max-width: 200px; /* adjust width */
+  max-width: 200px;
+  /* adjust width */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -1,15 +1,18 @@
 .login-container {
   max-width: 320px;
-  margin: auto;                /* center horizontally */
+  margin: auto;
+  /* center horizontally */
   padding: 5px;
 
   /* Flexbox centering */
   display: flex;
   flex-direction: column;
-  justify-content: center;     /* vertical centering */
-  align-items: center;         /* horizontal centering */
+  justify-content: center;
+  /* vertical centering */
+  align-items: center;
+  /* horizontal centering */
 
-  min-height: 83vh;           
+  min-height: 83vh;
 }
 
 
@@ -20,7 +23,7 @@
 
 .forgot-password a {
   text-decoration: none;
-  color: #3f51b5;
+  color: var(--theme-primary);
   font-size: 14px;
 }
 
@@ -48,9 +51,8 @@
   margin-top: 15px;
 }
 
-.login-btn:disabled
-{
-  background-color: #005cbb;
+.login-btn:disabled {
+  background-color: var(--theme-primary);
   color: #fff;
   opacity: 0.5;
 }
@@ -83,6 +85,7 @@
   background-color: #4caf50 !important;
   color: white !important;
 }
+
 .toast-error {
   background-color: #f44336 !important;
   color: white !important;

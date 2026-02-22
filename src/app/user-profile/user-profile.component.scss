@@ -57,14 +57,13 @@
 
 .update-btn {
   width: 100%;
-  background-color: rgb(56, 112, 167) !important;
+  background-color: var(--theme-primary) !important;
   color: white !important;
 }
 
 
-.update-btn:disabled
-{
-  background-color: #005cbb;
+.update-btn:disabled {
+  background-color: var(--theme-primary);
   color: #fff;
   opacity: 0.5;
 }

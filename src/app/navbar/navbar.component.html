@@ -23,6 +23,13 @@
           <mat-icon>person</mat-icon>
           <span>Profile</span>
         </button>
+
+        <!-- Nested Settings Menu for Themes -->
+        <button mat-menu-item [matMenuTriggerFor]="themesMenu">
+          <mat-icon>settings</mat-icon>
+          <span>Settings</span>
+        </button>
+
         @if(accountService.currentUser()?.role == 'Admin')
         {
         <button mat-menu-item routerLink="/application-users">
@@ -34,6 +41,17 @@
           <mat-icon>logout</mat-icon>
           <span>Logout</span>
         </button>
+      </mat-menu>
+
+      <!-- Sub-menu Definition -->
+      <mat-menu #themesMenu="matMenu">
+        <div class="px-3 py-2 text-muted fw-bold" style="font-size: 0.85rem">THEMES</div>
+        @for (theme of availableThemes; track theme.name) {
+        <button mat-menu-item (click)="changeTheme(theme.color)">
+          <mat-icon [style.color]="theme.color">circle</mat-icon>
+          <span>{{theme.name}}</span>
+        </button>
+        }
       </mat-menu>
     </div>
 
