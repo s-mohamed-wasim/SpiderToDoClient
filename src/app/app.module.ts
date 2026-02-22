@@ -11,6 +11,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -55,7 +57,7 @@ import { ApplicationUsersComponent } from './application-users/application-users
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot({     
+    ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
@@ -70,12 +72,15 @@ import { ApplicationUsersComponent } from './application-users/application-users
     MatFormFieldModule,
     MatCardModule,
     MatCheckboxModule,
+    MatCheckboxModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
     NgxSpinnerModule.forRoot({ type: 'line-scale-party' }), //default spinner type
-    DragDropModule 
+    DragDropModule
   ],
   providers: [
     provideAnimationsAsync(),

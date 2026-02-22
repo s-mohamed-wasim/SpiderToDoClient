@@ -11,31 +11,31 @@ import { TaskService } from '../_services/task.service';
 export class AddTaskDialogComponent {
 
   taskForm!: FormGroup;
+  minDate = new Date();
 
-  constructor(private fb: FormBuilder,private dialogRef: MatDialogRef<AddTaskDialogComponent>
-              ,private tasksService : TaskService,@Inject(MAT_DIALOG_DATA) public data: {title:string,message:string,taskId:number}) 
-  {
+  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<AddTaskDialogComponent>
+    , private tasksService: TaskService, @Inject(MAT_DIALOG_DATA) public data: { title: string, message: string, taskId: number }) {
     this.taskForm = this.fb.group({
       taskId: [0],
       title: ['', Validators.required],
-      description: ['']
+      description: [''],
+      dueDate: [null]
     });
 
-    if(data.taskId)
-    {
+    if (data.taskId) {
       this.getTask(data.taskId);
     }
   }
 
-  getTask(taskId: number | null)
-  {
+  getTask(taskId: number | null) {
     this.tasksService.getTask(taskId).subscribe({
       next: (response) => {
         console.log(response);
         this.taskForm.patchValue({
           taskId: response.data[0].taskId,
           title: response.data[0].title,
-          description: response.data[0].description
+          description: response.data[0].description,
+          dueDate: response.data[0].dueDate ? new Date(response.data[0].dueDate) : null
         })
       }
     })
