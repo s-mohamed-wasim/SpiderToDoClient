@@ -4,7 +4,7 @@
   flex-direction: column;
   gap: 1rem;
   background-color: #f7f9fc;
-  min-height: 100vh;
+  height: 100%; /* fill parent scroll container height */
 }
 
 /* =========================
@@ -18,9 +18,7 @@
   border-radius: 10px;
   padding: 0.75rem 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  flex-shrink: 0; /* stay fixed above the scrollable list */
 }
 
 .header-left {
@@ -54,10 +52,11 @@
    USERS LIST
    ========================= */
 .users-list {
+  flex: 1;          /* take all remaining height */
+  overflow-y: auto; /* only the list scrolls */
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  margin-top: 0.5rem;
 }
 
 /* =========================
