@@ -23,7 +23,7 @@
   color: white;
   margin-top: 14px;
   padding-right: 8px;
-  font-size: var(--font-sm);
+  font-size: small;
 }
 
 .nav-greet-user span {
@@ -36,7 +36,7 @@
   vertical-align: bottom;
   font-weight: 500;
 
-  @media (max-width: 768px) {
+  @media (max-width: '768px') {
     max-width: 120px;
   }
 }
