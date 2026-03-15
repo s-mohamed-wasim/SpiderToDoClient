@@ -44,7 +44,6 @@
 }
 
 ::ng-deep .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
-  //: none; // to hide the tickmark
   color: white !important;
 }
 
@@ -183,8 +182,8 @@
     opacity: 0.5;
     overflow-y: hidden;
 
-    @media (max-width:'768px') {
-      height: 100%;
+    @media (max-width: 768px) {
+      height: auto;
       width: 100%;
     }
   }
